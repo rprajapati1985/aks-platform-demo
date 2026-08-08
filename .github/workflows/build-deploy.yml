@@ -6,10 +6,8 @@ on:
   workflow_dispatch:
 
 env:
-  ACR_NAME: acrplatformdemo2026
+  ACR_LOGIN_SERVER: acrplatformdemo2026.azurecr.io
   IMAGE_NAME: demo-app
-  AKS_CLUSTER: aks-platform-demo
-  RESOURCE_GROUP: rg-platform-demo
 
 jobs:
   build-and-deploy:
@@ -17,29 +15,32 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
-
-    - name: Login to Azure
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+      uses: actions/checkout@v4
 
     - name: Login to ACR
-      run: az acr login --name ${{ env.ACR_NAME }}
+      uses: docker/login-action@v3
+      with:
+        registry: ${{ env.ACR_LOGIN_SERVER }}
+        username: ${{ secrets.ACR_USERNAME }}
+        password: ${{ secrets.ACR_PASSWORD }}
 
     - name: Build and push Docker image
-      run: |
-        docker build -t ${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ github.sha }} ./app
-        docker tag ${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ github.sha }} \
-          ${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:latest
-        docker push ${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ github.sha }}
-        docker push ${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:latest
+      uses: docker/build-push-action@v5
+      with:
+        context: ./app
+        push: true
+        tags: |
+          ${{ env.ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          ${{ env.ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:latest
 
-    - name: Get AKS credentials
-      run: |
-        az aks get-credentials \
-          --resource-group ${{ env.RESOURCE_GROUP }} \
-          --name ${{ env.AKS_CLUSTER }}
+    - name: Install kubectl
+      uses: azure/setup-kubectl@v3
+
+    - name: Set AKS context
+      uses: azure/k8s-set-context@v4
+      with:
+        method: kubeconfig
+        kubeconfig: ${{ secrets.KUBE_CONFIG }}
 
     - name: Deploy to AKS
       run: |
