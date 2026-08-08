@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: demo-ingress
+  namespace: demo
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - demo.platform.local
+    secretName: tls-secret
+  rules:
+  - host: demo.platform.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: demo-app
+            port:
+              number: 80

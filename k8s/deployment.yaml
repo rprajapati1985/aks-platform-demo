@@ -27,6 +27,9 @@ spec:
           limits:
             cpu: 100m
             memory: 128Mi
+        volumeMounts:
+        - name: html
+          mountPath: /usr/share/nginx/html
         livenessProbe:
           httpGet:
             path: /
@@ -39,3 +42,7 @@ spec:
             port: 80
           initialDelaySeconds: 5
           periodSeconds: 10
+      volumes:
+      - name: html
+        configMap:
+          name: demo-html

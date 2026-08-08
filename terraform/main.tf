@@ -3,7 +3,7 @@ resource "azurerm_resource_group" "main" {
   location = var.location
 
   tags = {
-    project     = "toptal-assignment"
+    project     = "aks-platform-demo"
     owner       = "raj-prajapati"
     environment = "demo"
   }

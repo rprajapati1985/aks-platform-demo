@@ -6,7 +6,7 @@ resource "azurerm_container_registry" "acr" {
   admin_enabled       = true
 
   tags = {
-    project = "toptal-assignment"
+    project = "aks-platform-demo"
     owner   = "raj-prajapati"
   }
 }

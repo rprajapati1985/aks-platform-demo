@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: demo-html
+  namespace: demo
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>AKS Platform Demo</title>
+      <style>
+        body { font-family: Arial, sans-serif; text-align: center;
+               padding: 60px; background: #0a0e1a; color: #ffffff; }
+        h1   { color: #00C6FF; font-size: 2.5em; }
+        p    { font-size: 1.2em; color: #8892b0; }
+        .box { background: #1a2035; border: 1px solid #00C6FF;
+               border-radius: 10px; padding: 30px; max-width: 600px;
+               margin: 40px auto; }
+      </style>
+    </head>
+    <body>
+      <h1>Hello from AKS!</h1>
+      <div class="box">
+        <p><strong>Engineer:</strong> Raj Kumar Prajapati</p>
+        <p><strong>Stack:</strong> Azure DevOps | ACR | AKS | nginx Ingress (TLS)</p>
+        <p><strong>Infrastructure:</strong> Terraform | Helm | kubectl</p>
+      </div>
+    </body>
+    </html>
