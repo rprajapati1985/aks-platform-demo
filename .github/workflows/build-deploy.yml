@@ -48,4 +48,3 @@ jobs:
         kubectl rollout status deployment/demo-app -n demo
         kubectl get pods -n demo
         kubectl get ingress -n demo
-# Pipeline trigger Sat Aug  8 19:35:08 IST 2026
