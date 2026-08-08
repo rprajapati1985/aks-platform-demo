@@ -1,6 +1,6 @@
 variable "resource_group_name" {
   description = "Resource group name"
-  default     = "rg-toptal-raj"
+  default     = "rg-platform-demo"
 }
 
 variable "location" {
@@ -10,17 +10,17 @@ variable "location" {
 
 variable "acr_name" {
   description = "Azure Container Registry name (must be globally unique)"
-  default     = "acrtoptalraj2026"
+  default     = "acrplatformdemo2026"
 }
 
 variable "cluster_name" {
   description = "AKS cluster name"
-  default     = "aks-toptal-raj"
+  default     = "aks-platform-demo"
 }
 
 variable "dns_prefix" {
   description = "DNS prefix for AKS"
-  default     = "toptalraj"
+  default     = "platformdemo"
 }
 
 variable "node_count" {
