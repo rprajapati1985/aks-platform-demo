@@ -61,3 +61,4 @@ kubectl apply -f k8s/
 cd terraform
 terraform destroy -auto-approve
 ```
+<!-- demo run -->
