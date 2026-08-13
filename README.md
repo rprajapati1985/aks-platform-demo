@@ -28,8 +28,8 @@ terraform apply -auto-approve
 ## Connect to AKS
 ```bash
 az aks get-credentials \
-  --resource-group rg-toptal-raj \
-  --name aks-toptal-raj
+  --resource-group rg-platform-demo \
+  --name aks-platform-demo
 kubectl get nodes
 ```
 
