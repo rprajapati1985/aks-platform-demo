@@ -62,3 +62,21 @@ cd terraform
 terraform destroy -auto-approve
 ```
 <!-- demo run -->
+
+## Architecture Diagram
+
+![Azure AKS Architecture](architecture/azure-aks-architecture.png)
+
+## Infrastructure Components
+
+| Component | Details |
+|---|---|
+| Resource Group | rg-platform-demo |
+| Region | East US |
+| ACR | acrplatformdemo2026.azurecr.io |
+| AKS Cluster | aks-platform-demo |
+| Node Size | 2x Standard_D2s_v7 |
+| Kubernetes | v1.35.6 |
+| Ingress | nginx Ingress Controller |
+| TLS | Self-signed certificate (tls-secret) |
+| App | demo-app:latest (2 replicas) |
